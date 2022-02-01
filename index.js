@@ -47,7 +47,7 @@ app.all('*', (req, res, next) => {
     if (req.url.startsWith('/api/')) {
         next()
     } else {
-        res.sendFile(`${resolve()}/static/index.html`);
+        res.sendFile(`${resolve()}/index.html`);
     }
 });
 
