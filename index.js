@@ -42,7 +42,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/api', isAuthenticated, apiRouter);
-app.use(express.static('static'))
+app.use('/static',express.static('static'))
 
 app.all('*', (req, res, next) => {
     if (req.url.startsWith('/api/')) {
