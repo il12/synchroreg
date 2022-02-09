@@ -39,7 +39,9 @@ let parseXlApp = function parseXlApp(file) {
                 worksheet[`C${i}`].v,
                 worksheet[`D${i}`].v,
                 teamName,
+                worksheet[`S${i}`].v,
                 worksheet[`T${i}`].v,
+                worksheet[`U${i}`].v,
             )
             athletes.push(athlete)
 
@@ -258,16 +260,18 @@ let parseXlApp = function parseXlApp(file) {
                 representative: false,
                 judge: false
             }
-            if (worksheet[`D${i}`] && worksheet[`D${i}`].v === "П") {
+            if (worksheet[`E${i}`] && worksheet[`E${i}`].v === "П") {
                 staffMember.representative = {role: 'представитель'}
             }
-            if (worksheet[`F${i}`] && worksheet[`F${i}`].v === "Т") {
+            if (worksheet[`H${i}`] && worksheet[`H${i}`].v === "Т") {
                 staffMember.coach = {role: 'тренер'}
             }
-            if (worksheet[`I${i}`] && worksheet[`I${i}`].v === "С") {
+            if (worksheet[`J${i}`] && worksheet[`J${i}`].v === "С") {
                 staffMember.judge = {
                     role: 'судья',
-                    category: worksheet[`K${i}`].v
+                    category: worksheet[`L${i}`].v,
+                    assignment: worksheet[`P${i}`]?.v,
+                    renewal: worksheet[`T${i}`]?.v
                 }
             }
             staff.push(
