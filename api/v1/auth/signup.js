@@ -1,6 +1,6 @@
 import express from 'express';
 import passport from 'passport';
-import {passportConfig} from '../../authentification-config.js'
+import {passportConfig} from '#root/authentification-config'
 
 const Router = express.Router;
 passportConfig(passport);
