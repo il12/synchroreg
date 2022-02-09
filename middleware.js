@@ -6,8 +6,8 @@ const isAuthenticated = function(req,res,next){
         '/',
         '/favicon.ico',
         '/login',
-        '/api/login',
-        '/api/signup',
+        '/api/auth/login',
+        '/api/auth/signup',
         '/signup',
         '/getCompetitionList',
     ]
