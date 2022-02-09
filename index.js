@@ -8,7 +8,6 @@ import createRouter from './api/createApiRouter.js';
 import {passportConfig} from './authentification-config.js';
 import {isAuthenticated,logRequest} from './middleware.js'
 import logger from "#root/services/logger";
-import {error} from "winston";
 passportConfig(passport);
 
 const CORS = {
