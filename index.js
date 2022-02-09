@@ -50,6 +50,7 @@ app.use((err,req,res,next)=>{
         logger.error(err)
         res.status(500).json({message: 'Внутренняя ошибка сервера. Свяжитесь с разработчиком'})
     }
+    next();
 })
 
 app.all('*', (req, res, next) => {
