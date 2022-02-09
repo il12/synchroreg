@@ -25,6 +25,7 @@ const logRequest = (req)=>{
         level: 'verbose',
         message: `${req.protocol} ${req.method} - ${req.url} from ${req.ip}`,
     })
+    return true;
 }
 
 export { isAuthenticated, logRequest };
