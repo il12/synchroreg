@@ -10,10 +10,14 @@ const Router = express.Router;
 passportConfig(passport);
 
 const saveApplicationEndpoint = Router({mergeParams: true})
-    .post('/application/savea', upload.single('file'), async (req, res, next) => {
+    .post('/application/save', upload.single('file'), async (req, res, next) => {
             req.body.author = req.user.id;
-            let competition = await saveApplication(req.body,req.file);
-            res.status(200).end();
+            try {
+                let competition = await saveApplication(req.body, req.file);
+                res.status(200).end();
+            } catch (e) {
+                res.status(500).json({message: e.message})
+            }
         }
     );
 

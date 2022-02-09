@@ -3,12 +3,14 @@ import Athlete from "../../classes/Athlete.js";
 import Solo from "../../classes/Solo.js";
 import Duet from "../../classes/Duet.js";
 import Team from "../../classes/Team.js";
+import Staff from "#root/classes/Staff";
 
 let parseXlApp = function parseXlApp(file) {
     let workbook = xlsx.read(file)
     let worksheet = workbook.Sheets["Заявка"]
     let teamName = worksheet['C7'] ? worksheet['C7'].v : null
     let athletes = [];
+    let staff = [];
     let figures = {
         'joungling': [],
         'padawan': [],
@@ -29,7 +31,8 @@ let parseXlApp = function parseXlApp(file) {
         mixed: [],
         team: [],
     }
-    for (let i = 11; i < 23; i++) {
+
+    for (let i = 11; i < 49; i++) {
         if (worksheet[`B${i}`]) {
             let athlete = new Athlete(
                 worksheet[`B${i}`].v,
@@ -246,9 +249,42 @@ let parseXlApp = function parseXlApp(file) {
         }
     }
 
+    for (let i = 51; i < 59; i++) {
+        if (worksheet[`B${i}`]) {
+            let staffMember = {
+                name: worksheet[`B${i}`].v,
+                team: teamName,
+                coach: false,
+                representative: false,
+                judge: false
+            }
+            if (worksheet[`D${i}`] && worksheet[`D${i}`].v === "П") {
+                staffMember.representative = {role: 'представитель'}
+            }
+            if (worksheet[`F${i}`] && worksheet[`F${i}`].v === "Т") {
+                staffMember.coach = {role: 'тренер'}
+            }
+            if (worksheet[`I${i}`] && worksheet[`I${i}`].v === "С") {
+                staffMember.judge = {
+                    role: 'судья',
+                    category: worksheet[`K${i}`].v
+                }
+            }
+            staff.push(
+                new Staff(
+                    staffMember.name,
+                    staffMember.team,
+                    staffMember.representative,
+                    staffMember.coach,
+                    staffMember.judge,
+                )
+            )
+        }
+    }
     const application = {
         teamName: teamName,
         athletes: athletes,
+        staff: staff,
         figures: figures,
         free: free,
         tech: tech

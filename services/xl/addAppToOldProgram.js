@@ -6,6 +6,7 @@ async function addAppToOldProgram(buffer, app) {
     const worksheet = workbook.getWorksheet('TEAMS_SETUP');
 
     const athleteCount = worksheet.getCell('AC2').result;
+    const staffCount = worksheet.getCell('AD2').result;
     const teamCount = worksheet.getCell('Y2').result;
     const freeSoloCount = worksheet.getCell('N2').result;
     const freeDuetCount = worksheet.getCell('O2').result;
@@ -18,35 +19,9 @@ async function addAppToOldProgram(buffer, app) {
     const techMixedCount = worksheet.getCell('V2').result;
     const techTeamCount = worksheet.getCell('W2').result;
 
-/*    worksheet.getCell('AC2').value = athleteCount;
-    worksheet.getCell('Y2').value = teamCount
-    worksheet.getCell('N2').value = freeSoloCount
-    worksheet.getCell('O2').value = freeDuetCount
-    worksheet.getCell('P2').value = freeMixedCount
-    worksheet.getCell('Q2').value = freeTeamCount
-    worksheet.getCell('R2').value = freeHighlightCount
-    worksheet.getCell('S2').value = freeCombiCount
-    worksheet.getCell('T2').value = techSoloCount
-    worksheet.getCell('U2').value = techDuetCount
-    worksheet.getCell('V2').value = techMixedCount
-    worksheet.getCell('W2').value = techTeamCount
-*/
-    console.log(worksheet.getCell('AC2').value)
-    console.log(worksheet.getCell('Y2').value)
-    console.log(worksheet.getCell('N2').value)
-    console.log(worksheet.getCell('O2').value)
-    console.log(worksheet.getCell('P2').value)
-    console.log(worksheet.getCell('R2').value)
-    console.log(worksheet.getCell('S2').value)
-    console.log(worksheet.getCell('T2').value)
-    console.log(worksheet.getCell('U2').value)
-    console.log(worksheet.getCell('V2').value)
-    console.log(worksheet.getCell('W2').value)
-
     const newTeamLine = teamCount + 4;
     const startingLine = athleteCount + 4;
-
-    console.log(newTeamLine)
+    const staffStartingLine = staffCount + 4;
 
     app.athletes.forEach((athlete, index) => {
         const athleteLine = startingLine + index;
@@ -72,14 +47,17 @@ async function addAppToOldProgram(buffer, app) {
             const jounglingCell = worksheet.getCell(`J${athleteLine}`)
             jounglingCell.value = '+'
         }
+
         if (isPadawanFigures !== -1) {
             const padawanCell = worksheet.getCell(`K${athleteLine}`)
             padawanCell.value = '+'
         }
+
         if (isJuniorFigures !== -1) {
             const juniorCell = worksheet.getCell(`L${athleteLine}`)
             juniorCell.value = '+'
         }
+
         if (isSeniorFigures !== -1) {
             const seniorCell = worksheet.getCell(`M${athleteLine}`)
             seniorCell.value = '+'
@@ -181,9 +159,78 @@ async function addAppToOldProgram(buffer, app) {
         }
     })
 
+    app.staff.forEach((staffMember,index)=>{
+        const staffLine = staffStartingLine + index;
+        const id = worksheet.getCell(`AF${staffLine}`)
+        id.value = staffCount + index + 1;
+        const name = worksheet.getCell(`AG${staffLine}`)
+        name.value = staffMember.name
+        const team = worksheet.getCell(`AH${staffLine}`)
+        team.value = staffMember.team
+        let roleString = '';
+        roleString+=staffMember.representative ? `${staffMember.representative.role} ` : '';
+        roleString+=staffMember.coach ? `${staffMember.coach.role} ` : '';
+        roleString+=staffMember.judge ? `${staffMember.judge.role}` : '';
+        const role = worksheet.getCell(`AI${staffLine}`)
+        role.value = roleString
+    })
+
+    worksheet.getCell('AC2').value = {
+        formula: worksheet.getCell('AC2').value.formula,
+        result: athleteCount+app.athletes.length,
+    };
+    worksheet.getCell('AD2').value = {
+        formula: worksheet.getCell('AD2').value.formula,
+        result: staffCount+app.staff.length,
+    };
+    worksheet.getCell('Y2').value = {
+        formula: worksheet.getCell('Y2').value.formula,
+        result: teamCount+1,
+    };
+    worksheet.getCell('N2').value = {
+        formula: worksheet.getCell('N2').value.formula,
+        result: freeSoloCount+app.free.solo.length,
+    };
+    worksheet.getCell('O2').value = {
+        formula: worksheet.getCell('O2').value.formula,
+        result: freeDuetCount+app.free.duet.length,
+    };
+    worksheet.getCell('P2').value = {
+        formula: worksheet.getCell('P2').value.formula,
+        result: freeMixedCount+app.free.mixed.length,
+    };
+    worksheet.getCell('Q2').value = {
+        formula: worksheet.getCell('Q2').value.formula,
+        result: freeTeamCount+app.free.team.length,
+    };
+    worksheet.getCell('R2').value = {
+        formula: worksheet.getCell('R2').value.formula,
+        result: freeHighlightCount+app.free.highlight.length,
+    };
+    worksheet.getCell('S2').value = {
+        formula: worksheet.getCell('S2').value.formula,
+        result: freeCombiCount+app.free.combi.length,
+    };
+    worksheet.getCell('T2').value = {
+        formula: worksheet.getCell('T2').value.formula,
+        result: techSoloCount+app.tech.solo.length,
+    };
+    worksheet.getCell('U2').value = {
+        formula: worksheet.getCell('U2').value.formula,
+        result: techDuetCount+app.tech.duet.length,
+    };
+    worksheet.getCell('V2').value = {
+        formula: worksheet.getCell('V2').value.formula,
+        result: techMixedCount+app.tech.mixed.length,
+    };
+    worksheet.getCell('W2').value = {
+        formula: worksheet.getCell('W2').value.formula,
+        result: techTeamCount+app.tech.team.length,
+    };
+
     const newTeam = worksheet.getCell(`Z${newTeamLine}`);
     newTeam.value = app.teamName;
-    return workbook.xlsx.writeBuffer()
+    return await workbook.xlsx.writeBuffer()
 }
 
 export default addAppToOldProgram;

@@ -6,8 +6,9 @@ import bodyParser from 'body-parser';
 import {resolve} from 'path';
 import createRouter from './api/createApiRouter.js';
 import {passportConfig} from './authentification-config.js';
-import {isAuthenticated} from './middleware.js'
-
+import {isAuthenticated,logRequest} from './middleware.js'
+import logger from "#root/services/logger";
+import {error} from "winston";
 passportConfig(passport);
 
 const CORS = {
@@ -19,9 +20,10 @@ const CORS = {
 
 const app = express();
 const apiRouter = await createRouter()
+app.set('trust proxy', true)
 
 app.use((req, res, next) => {
-    res.set(CORS) && next()
+    res.set(CORS) && logRequest(req) && next()
 })
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -44,6 +46,13 @@ app.use(passport.session());
 app.use('/api', isAuthenticated, apiRouter);
 app.use('/static',express.static('static'))
 
+app.use((err,req,res,next)=>{
+    if(err){
+        logger.error(err)
+        res.status(500).json({message: 'Внутренняя ошибка сервера. Свяжитесь с разработчиком'})
+    }
+})
+
 app.all('*', (req, res, next) => {
     if (req.url.startsWith('/api/')) {
         next()
@@ -53,3 +62,13 @@ app.all('*', (req, res, next) => {
 });
 
 app.listen(8080, console.log('Server Started'));
+
+process.on('unhandledRejection', error => {
+    logger.error(error);
+    throw error;
+})
+
+process.on('uncaughtException', error => {
+    logger.error(error);
+    throw error;
+})

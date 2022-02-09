@@ -8,19 +8,28 @@ async function saveApplication(data,file){
     })
     const createTableSQL = `CREATE TABLE IF NOT EXISTS application (
             competition TEXT,
-            author TEXT, 
+            author TEXT,
+            teamName TEXT, 
             json TEXT, 
-            file BLOB
+            file BLOB,
+            UNIQUE(competition, teamName)
          )`
-    console.log(data);
+    let teamName = JSON.parse(data.application).teamName;
     await db.exec(createTableSQL);
-    const insertSQL = await db.prepare('INSERT INTO application (competition,author,json,file) VALUES (?,?,?,?);');
-    await insertSQL.run([
-        data.competition,
-        data.author,
-        data.application,
-        file.buffer,
-    ])
+    const insertSQL = await db.prepare('INSERT INTO application (competition,author,teamName,json,file) VALUES (?,?,?,?,?);');
+    try {
+        await insertSQL.run([
+            data.competition,
+            data.author,
+            teamName,
+            data.application,
+            file.buffer,
+        ])
+    } catch (e) {
+        if(e.errno === 19){
+            throw new Error('Команда с таким названием уже зарегистрирована на данное соревнование')
+        }
+    }
 }
 
 export default saveApplication;

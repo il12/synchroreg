@@ -1,3 +1,5 @@
+import logger from "#root/services/logger";
+
 const isAuthenticated = function(req,res,next){
     "use strict";
     const freeAccess = [
@@ -5,6 +7,7 @@ const isAuthenticated = function(req,res,next){
         '/favicon.ico',
         '/login',
         '/api/login',
+        '/api/signup',
         '/signup',
         '/getCompetitionList',
     ]
@@ -17,4 +20,11 @@ const isAuthenticated = function(req,res,next){
     }
 };
 
-export { isAuthenticated };
+const logRequest = (req)=>{
+    logger.log({
+        level: 'verbose',
+        message: `${req.protocol} ${req.method} - ${req.url} from ${req.ip}`,
+    })
+}
+
+export { isAuthenticated, logRequest };

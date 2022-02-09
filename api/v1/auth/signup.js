@@ -6,7 +6,7 @@ const Router = express.Router;
 passportConfig(passport);
 
 const signup = Router({mergeParams: true})
-    .post('/signup', (req, res, next) => {
+    .post('/auth/signup', (req, res, next) => {
             passport.authenticate(
                 'signup',
                 {session: true},
