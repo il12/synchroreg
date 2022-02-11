@@ -4,6 +4,7 @@ import Solo from "../../classes/Solo.js";
 import Duet from "../../classes/Duet.js";
 import Team from "../../classes/Team.js";
 import Staff from "#root/classes/Staff";
+import HandledError from "#root/classes/Errors/HandledError";
 
 let parseXlApp = function parseXlApp(file) {
     let workbook = xlsx.read(file)
@@ -11,6 +12,7 @@ let parseXlApp = function parseXlApp(file) {
     let teamName = worksheet['C7'] ? worksheet['C7'].v : null
     let athletes = [];
     let staff = [];
+    let isRepresentativeExists = false;
     let figures = {
         'joungling': [],
         'padawan': [],
@@ -31,9 +33,14 @@ let parseXlApp = function parseXlApp(file) {
         mixed: [],
         team: [],
     }
-
+    if (!teamName) throw new HandledError('Укажите название команды')
     for (let i = 11; i < 49; i++) {
         if (worksheet[`B${i}`]) {
+            if(!worksheet[`C${i}`]) throw new HandledError(`Укажите дату рождения у спортсмена ${worksheet[`B${i}`].v}`);
+            if(!worksheet[`D${i}`]) throw new HandledError(`Укажите разряд у спортсмена ${worksheet[`B${i}`].v}`)
+            if(!worksheet[`S${i}`]) throw new HandledError(`Укажите общество/школу у спортсмена ${worksheet[`B${i}`].v}`)
+            if(!worksheet[`T${i}`]) throw new HandledError(`Укажите город у спортсмена ${worksheet[`B${i}`].v}`)
+            if(!worksheet[`U${i}`]) throw new HandledError(`Укажите тренера у спортсмена ${worksheet[`B${i}`].v}`)
             let athlete = new Athlete(
                 worksheet[`B${i}`].v,
                 worksheet[`C${i}`].v,
@@ -253,6 +260,13 @@ let parseXlApp = function parseXlApp(file) {
 
     for (let i = 51; i < 59; i++) {
         if (worksheet[`B${i}`]) {
+            if(!worksheet[`E${i}`] && !worksheet[`H${i}`] && worksheet[`J${i}`])
+                throw new HandledError(`Укажите как минимум одну роль у ${worksheet[`B${i}`].v}`)
+            if(worksheet[`J${i}`] && !worksheet[worksheet[`L${i}`]])
+                throw new HandledError(`Укажите категорию судьи ${worksheet[`B${i}`].v}`);
+            if(worksheet[`J${i}`] && worksheet[`L${i}`].v !== 'б/к' && !worksheet[`P${i}`])
+                throw new HandledError(`Укажите сведения о присвоении категории судье ${worksheet[`B${i}`].v}`);
+
             let staffMember = {
                 name: worksheet[`B${i}`].v,
                 team: teamName,
@@ -261,6 +275,8 @@ let parseXlApp = function parseXlApp(file) {
                 judge: false
             }
             if (worksheet[`E${i}`] && worksheet[`E${i}`].v === "П") {
+                if(isRepresentativeExists) throw new HandledError('В команде должен быть ровно один представитель')
+                isRepresentativeExists = true;
                 staffMember.representative = {role: 'представитель'}
             }
             if (worksheet[`H${i}`] && worksheet[`H${i}`].v === "Т") {
@@ -285,6 +301,9 @@ let parseXlApp = function parseXlApp(file) {
             )
         }
     }
+
+    if(!isRepresentativeExists) throw new HandledError('В команде должен быть ровно один представитель')
+
     const application = {
         teamName: teamName,
         athletes: athletes,

@@ -10,9 +10,9 @@ export default class Athlete{
         this.city = city;
         this.coach = coach;
         this.isReserve = isReserve
-        this.id = this.getId();
+        this.id = this.getID();
     }
-    getId(){
+    getID(){
         const hash = crypto.createHash('sha256')
         hash.update(this.name);
         hash.update(this.year.toString());

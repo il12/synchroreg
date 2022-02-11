@@ -1,4 +1,5 @@
 import crypto from 'crypto';
+import HandledError from "#root/classes/Errors/HandledError";
 
 export default class Team{
     constructor(number, team) {
@@ -16,7 +17,7 @@ export default class Team{
             this.hash.update(athlete.name);
             this.id = this.hash.copy().digest('hex')
         } else {
-            throw `Too much athletes for team number ${this.number}`
+            throw new HandledError(`Too much athletes for team number ${this.number}`)
         }
     }
 }

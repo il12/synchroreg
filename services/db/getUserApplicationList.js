@@ -1,7 +1,7 @@
 import sqlite3 from 'sqlite3'
-import { open } from 'sqlite'
+import {open} from 'sqlite'
 
-async function getUserApplicationList(userid){
+async function getUserApplicationList(userid) {
     const db = await open({
         filename: 'assets/database.db',
         driver: sqlite3.Database
@@ -19,8 +19,9 @@ async function getUserApplicationList(userid){
     ON 
         competition.id = application.competition 
     AND 
-        application.author=?`,[userid]);
+        application.author=?`, [userid]);
     return result;
+
 }
 
 export default getUserApplicationList;

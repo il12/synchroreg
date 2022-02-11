@@ -3,6 +3,7 @@ import passport from 'passport';
 import {passportConfig} from '#root/authentification-config'
 import parseXlApp from "#root/services/xl/parseXlApp";
 import multer from 'multer';
+import HandledError from "#root/classes/Errors/HandledError";
 
 const storage = multer.memoryStorage()
 const upload = multer({storage: storage})
@@ -11,10 +12,17 @@ passportConfig(passport);
 
 const parseApplicationEndpoint = Router({mergeParams: true})
     .post('/application/parse', upload.single('application'), async (req, res, next) => {
-            console.log(req.file);
-            let competition = await parseXlApp(req.file.buffer);
-            console.log(competition)
-            res.status(200).json(competition);
+            try {
+                let competition = parseXlApp(req.file.buffer);
+                res.status(200).json(competition);
+            } catch (e) {
+                if (e instanceof HandledError) {
+                    res.status(500).json({message: e.message})
+                } else {
+                    res.status(500).json({message: 'Неожиданная ошибка сервера. Обратитесь к разработчику'})
+                    throw e;
+                }
+            }
         }
     );
 

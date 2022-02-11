@@ -1,7 +1,7 @@
 import crypto from "crypto";
 
 export default class Competition {
-    constructor(name, dates, place, info, deadline, author, file) {
+    constructor(name, dates, place, info = null, deadline, author, file = null) {
         this.name = name;
         this.dates = dates;
         this.place = place;
