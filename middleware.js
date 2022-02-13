@@ -8,6 +8,7 @@ const isAuthenticated = function(req,res,next){
         '/login',
         '/auth/login',
         '/auth/signup',
+        '/auth/logout',
         '/signup',
         '/getCompetitionList',
     ]
