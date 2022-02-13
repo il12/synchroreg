@@ -45,14 +45,6 @@ app.use(passport.session());
 app.use('/api', isAuthenticated, apiRouter);
 app.use('/static',express.static('static'))
 
-app.use((err,req,res,next)=>{
-    if(err){
-        logger.error(err)
-        res.status(500).json({message: 'Внутренняя ошибка сервера. Свяжитесь с разработчиком'})
-    }
-    next();
-})
-
 app.all('*', (req, res, next) => {
     if (req.url.startsWith('/api/')) {
         next()
