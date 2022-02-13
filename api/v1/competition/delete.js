@@ -7,7 +7,7 @@ const Router = express.Router;
 passportConfig(passport);
 
 const Endpoint = Router({mergeParams: true})
-    .delete('/application/:id', async (req, res, next) => {
+    .delete('/competition/:id', async (req, res, next) => {
             try {
                 await deleteCompetitionById(req.params.id);
                 res.status(200).end()
