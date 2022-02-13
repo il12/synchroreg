@@ -9,8 +9,10 @@ const logout = Router({mergeParams: true})
     .post('/auth/logout', (req, res, next) => {
             console.log(req.isAuthenticated());
             req.logOut();
-            console.log(req.isAuthenticated());
-            res.status(200).end();
+            req.session.destroy(()=>{
+                console.log(req.isAuthenticated());
+                res.status(200).end();
+            })
         }
     );
 
