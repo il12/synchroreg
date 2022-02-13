@@ -8,6 +8,7 @@ import createRouter from './api/createApiRouter.js';
 import {passportConfig} from './authentification-config.js';
 import {isAuthenticated,logRequest} from './middleware.js'
 import logger from "#root/services/logger";
+import setupDB from "#root/services/db/setup";
 passportConfig(passport);
 
 const CORS = {
@@ -53,7 +54,10 @@ app.all('*', (req, res, next) => {
     }
 });
 
-app.listen(8080, console.log('Server Started'));
+app.listen(8080, async ()=>{
+    await setupDB();
+    console.log('Server Started')
+});
 
 process.on('unhandledRejection', error => {
     logger.error(error);
