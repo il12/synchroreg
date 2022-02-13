@@ -36,8 +36,8 @@ app.use(session({
         "expires": 1209600000,
         "secure": false,
     },
-    resave: true,
-    saveUninitialized: true
+    resave: false,
+    saveUninitialized: false
 }));
 
 app.use(passport.initialize());
