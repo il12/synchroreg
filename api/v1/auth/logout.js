@@ -7,7 +7,7 @@ passportConfig(passport);
 
 const login = Router({mergeParams: true})
     .post('/auth/login', (req, res, next) => {
-            req.logout()
+            req.session.destroy();
             res.redirect('/')
         }
     );
