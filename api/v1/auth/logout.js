@@ -8,7 +8,8 @@ passportConfig(passport);
 const login = Router({mergeParams: true})
     .post('/auth/login', (req, res, next) => {
             req.logout();
-            res.status(200).clearCookie('cookie', {path: '/'}).json({status: "Success"});
+            console.log(res.cookies);
+            res.status(200).clearCookie('cookie', {path: '/'}).end();
         }
     );
 
