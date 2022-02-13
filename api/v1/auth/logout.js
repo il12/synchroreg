@@ -6,7 +6,7 @@ const Router = express.Router;
 passportConfig(passport);
 
 const logout = Router({mergeParams: true})
-    .post('/auth/logout', (req, res, next) => {
+    .get('/auth/logout', (req, res, next) => {
             console.log(req.isAuthenticated());
             req.logOut();
             req.session.destroy(()=>{
