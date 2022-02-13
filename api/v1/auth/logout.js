@@ -7,8 +7,9 @@ passportConfig(passport);
 
 const login = Router({mergeParams: true})
     .post('/auth/login', (req, res, next) => {
+            console.log(req.session);
             req.logout();
-            console.log(res.cookies);
+            console.log(req.session);
             res.status(200).clearCookie('cookie', {path: '/'}).end();
         }
     );
