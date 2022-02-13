@@ -30,7 +30,7 @@ async function saveCompetition(competition){
             competition.info,
             deadlineDate,
             competition.author,
-            competition.file.buffer
+            competition.file?.buffer
         ])
     } catch (e) {
         if (e.errno === 19) {
