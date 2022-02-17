@@ -260,9 +260,9 @@ let parseXlApp = function parseXlApp(file) {
 
     for (let i = 51; i < 59; i++) {
         if (worksheet[`B${i}`]) {
-            if(!worksheet[`E${i}`] && !worksheet[`H${i}`] && worksheet[`J${i}`])
+            if(!worksheet[`E${i}`] && !worksheet[`H${i}`] && !worksheet[`J${i}`])
                 throw new HandledError(`Укажите как минимум одну роль у ${worksheet[`B${i}`].v}`)
-            if(worksheet[`J${i}`] && !worksheet[worksheet[`L${i}`]])
+            if(worksheet[`J${i}`] && !worksheet[`L${i}`])
                 throw new HandledError(`Укажите категорию судьи ${worksheet[`B${i}`].v}`);
             if(worksheet[`J${i}`] && worksheet[`L${i}`].v !== 'б/к' && !worksheet[`P${i}`])
                 throw new HandledError(`Укажите сведения о присвоении категории судье ${worksheet[`B${i}`].v}`);

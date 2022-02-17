@@ -13,6 +13,7 @@ passportConfig(passport);
 const parseApplicationEndpoint = Router({mergeParams: true})
     .post('/application/parse', upload.single('file'), async (req, res, next) => {
             try {
+                console.log(req.file)
                 let application = parseXlApp(req.file.buffer);
                 res.status(200).json(application);
             } catch (e) {
