@@ -11,10 +11,10 @@ const Router = express.Router;
 passportConfig(passport);
 
 const parseApplicationEndpoint = Router({mergeParams: true})
-    .post('/application/parse', upload.single('application'), async (req, res, next) => {
+    .post('/application/parse', upload.single('file'), async (req, res, next) => {
             try {
-                let competition = parseXlApp(req.file.buffer);
-                res.status(200).json(competition);
+                let application = parseXlApp(req.file.buffer);
+                res.status(200).json(application);
             } catch (e) {
                 if (e instanceof HandledError) {
                     res.status(500).json({message: e.message})
