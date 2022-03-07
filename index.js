@@ -43,18 +43,15 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-//app.use('/api', isAuthenticated, apiRouter);
+app.use('/api', isAuthenticated, apiRouter);
 app.use('/static',express.static('static'))
 
 app.all('*', (req, res, next) => {
-    /*
     if (req.url.startsWith('/api/')) {
         next()
     } else {
         res.sendFile(`${resolve()}/index.html`);
     }
-     */
-    res.sendFile(`${resolve()}/index.html`);
 });
 
 app.listen(8080, async ()=>{
