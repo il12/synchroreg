@@ -35,6 +35,8 @@ async function addAppToOldProgram(buffer, app) {
         discharge.value = athlete.discharge
         const team = worksheet.getCell(`E${athleteLine}`)
         team.value = athlete.team
+        const athleteId = worksheet.getCell(`F${athleteLine}`)
+        athleteId.value = athlete.id
         const coach = worksheet.getCell(`H${athleteLine}`)
         coach.value = athlete.coach
 
