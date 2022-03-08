@@ -12,7 +12,7 @@ async function getApplicationFile(id){
     );
 
     const workbook = new ExcelJS.Workbook();
-    await workbook.xlsx.readFile('assets/Заявка.xlsx');
+    await workbook.xlsx.readFile('assets/Заявка.xlsm');
     const worksheet = workbook.getWorksheet('Заявка');
 
     const nameCell = worksheet.getCell('C3');

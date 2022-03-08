@@ -23,14 +23,16 @@ async function addAppToOldProgram(buffer, app) {
     const startingLine = athleteCount + 4;
     const staffStartingLine = staffCount + 4;
 
+    worksheet.getCell(`Y${newTeamLine}`).value = teamCount+1
+
     app.athletes.forEach((athlete, index) => {
         const athleteLine = startingLine + index;
         const id = worksheet.getCell(`A${athleteLine}`)
         id.value = athleteCount + index + 1;
         const name = worksheet.getCell(`B${athleteLine}`)
-        name.value = athlete.name
-        const year = worksheet.getCell(`C${athleteLine}`)
-        year.value = athlete.year
+        name.value = `${athlete.family} ${athlete.name}`
+        const dob = worksheet.getCell(`C${athleteLine}`)
+        dob.value = athlete.dob
         const discharge = worksheet.getCell(`D${athleteLine}`)
         discharge.value = athlete.discharge
         const team = worksheet.getCell(`E${athleteLine}`)
