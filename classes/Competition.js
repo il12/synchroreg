@@ -16,7 +16,7 @@ export default class Competition {
         const hash = crypto.createHash('sha256')
         hash.update(this.name);
         hash.update(this.dates);
-        hash.update(this.place);
+        hash.update(this.place)
         return hash.copy().digest('hex');
     }
 }
