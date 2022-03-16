@@ -191,7 +191,7 @@ let parseXlApp = function parseXlApp(file) {
                 ))
             }
 
-            if (worksheet[`P${i}`] && (worksheet[`P${i}`].v.endsWith('К') || worksheet[`P${i}`].v.endsWith('Р'))) {
+            if (worksheet[`P${i}`] && (worksheet[`P${i}`].v.endsWith('К') || worksheet[`P${i}`].v.endsWith('Р') || worksheet[`P${i}`].v.endsWith('Г'))) {
                 let number = parseInt(worksheet[`P${i}`].v, 10)
                 athlete.isReserve = worksheet[`P${i}`].v.endsWith('Р');
                 let currentTeam = free.combi.find(team => team.number === number)
