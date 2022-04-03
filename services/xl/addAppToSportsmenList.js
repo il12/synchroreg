@@ -16,7 +16,7 @@ async function addAppToSportsmenList(buffer, app) {
         const name = worksheet.getCell(`B${athleteLine}`)
         name.value = `${athlete.family} ${athlete.name} ${athlete.surname}`
         const year = worksheet.getCell(`C${athleteLine}`)
-        year.value = athlete.year
+        year.value = athlete.dob
         const discharge = worksheet.getCell(`D${athleteLine}`)
         discharge.value = athlete.discharge
         const city = worksheet.getCell(`G${athleteLine}`)
