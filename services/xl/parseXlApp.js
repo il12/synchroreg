@@ -72,15 +72,15 @@ let parseXlApp = function parseXlApp(file) {
                 figures['senior'].push(athlete)
             }
 
-            if (worksheet[`K${i}`] && worksheet[`K${i}`].v.endsWith('С')) {
+            if (worksheet[`K${i}`] && worksheet[`K${i}`].v.toUpperCase().endsWith('С')) {
                 free['solo'].push(new Solo(
                     athlete
                 ))
             }
 
-            if (worksheet[`L${i}`] && (worksheet[`L${i}`].v.endsWith('Д') || worksheet[`L${i}`].v.endsWith('Р'))) {
+            if (worksheet[`L${i}`] && (worksheet[`L${i}`].v.toUpperCase().endsWith('Д') || worksheet[`L${i}`].v.toUpperCase().endsWith('Р'))) {
                 let number = parseInt(worksheet[`L${i}`].v, 10)
-                athlete.isReserve = worksheet[`L${i}`].v.endsWith('Р');
+                athlete.isReserve = worksheet[`L${i}`].v.toUpperCase().endsWith('Р');
                 let currentDuet = free.duet.find(duet => duet.number === number)
                 if (!currentDuet) {
                     let duet = new Duet(
@@ -106,9 +106,9 @@ let parseXlApp = function parseXlApp(file) {
                 ));
             }
 
-            if (worksheet[`M${i}`] && (worksheet[`M${i}`].v.endsWith('Д') || worksheet[`M${i}`].v.endsWith('Р'))) {
+            if (worksheet[`M${i}`] && (worksheet[`M${i}`].v.toUpperCase().endsWith('Д') || worksheet[`M${i}`].v.toUpperCase().endsWith('Р'))) {
                 let number = parseInt(worksheet[`M${i}`].v, 10)
-                athlete.isReserve = worksheet[`M${i}`].v.endsWith('Р');
+                athlete.isReserve = worksheet[`M${i}`].v.toUpperCase().endsWith('Р');
                 let currentDuet = free.mixed.find(duet => duet.number === number)
                 if (!currentDuet) {
                     let duet = new Duet(
@@ -135,9 +135,9 @@ let parseXlApp = function parseXlApp(file) {
                 ))
             }
 
-            if (worksheet[`N${i}`] && (worksheet[`N${i}`].v.endsWith('Г') || worksheet[`N${i}`].v.endsWith('Р'))) {
+            if (worksheet[`N${i}`] && (worksheet[`N${i}`].v.toUpperCase().endsWith('Г') || worksheet[`N${i}`].v.toUpperCase().endsWith('Р'))) {
                 let number = parseInt(worksheet[`N${i}`].v, 10)
-                athlete.isReserve = worksheet[`N${i}`].v.endsWith('Р');
+                athlete.isReserve = worksheet[`N${i}`].v.toUpperCase().endsWith('Р');
                 let currentTeam = free.team.find(team => team.number === number)
                 if (!currentTeam) {
                     let team = new Team(
@@ -163,9 +163,9 @@ let parseXlApp = function parseXlApp(file) {
                 ))
             }
 
-            if (worksheet[`O${i}`] && (worksheet[`O${i}`].v.endsWith('Г') || worksheet[`O${i}`].v.endsWith('Р'))) {
+            if (worksheet[`O${i}`] && (worksheet[`O${i}`].v.toUpperCase().endsWith('Г') || worksheet[`O${i}`].v.toUpperCase().endsWith('Р'))) {
                 let number = parseInt(worksheet[`O${i}`].v, 10)
-                athlete.isReserve = worksheet[`O${i}`].v.endsWith('Р');
+                athlete.isReserve = worksheet[`O${i}`].v.toUpperCase().endsWith('Р');
                 let currentTeam = free.highlight.find(team => team.number === number)
                 if (!currentTeam) {
                     let team = new Team(
@@ -191,9 +191,9 @@ let parseXlApp = function parseXlApp(file) {
                 ))
             }
 
-            if (worksheet[`P${i}`] && (worksheet[`P${i}`].v.endsWith('К') || worksheet[`P${i}`].v.endsWith('Р') || worksheet[`P${i}`].v.endsWith('Г'))) {
+            if (worksheet[`P${i}`] && (worksheet[`P${i}`].v.toUpperCase().endsWith('К') || worksheet[`P${i}`].v.toUpperCase().endsWith('Р') || worksheet[`P${i}`].v.toUpperCase().endsWith('Г'))) {
                 let number = parseInt(worksheet[`P${i}`].v, 10)
-                athlete.isReserve = worksheet[`P${i}`].v.endsWith('Р');
+                athlete.isReserve = worksheet[`P${i}`].v.toUpperCase().endsWith('Р');
                 let currentTeam = free.combi.find(team => team.number === number)
                 if (!currentTeam) {
                     let team = new Team(
@@ -224,9 +224,9 @@ let parseXlApp = function parseXlApp(file) {
             }
 
 
-            if (worksheet[`R${i}`] && (worksheet[`R${i}`].v.endsWith('Д') || worksheet[`R${i}`].v.endsWith('Р'))) {
+            if (worksheet[`R${i}`] && (worksheet[`R${i}`].v.toUpperCase().endsWith('Д') || worksheet[`R${i}`].v.toUpperCase().endsWith('Р'))) {
                 let number = parseInt(worksheet[`R${i}`].v, 10)
-                athlete.isReserve = worksheet[`R${i}`].v.endsWith('Р');
+                athlete.isReserve = worksheet[`R${i}`].v.toUpperCase().endsWith('Р');
                 let currentDuet = tech.duet.find(duet => duet.number === number)
                 if (!currentDuet) {
                     let duet = new Duet(
@@ -252,9 +252,9 @@ let parseXlApp = function parseXlApp(file) {
                 ))
             }
 
-            if (worksheet[`S${i}`] && (worksheet[`S${i}`].v.endsWith('Д') || worksheet[`S${i}`].v.endsWith('Р'))) {
+            if (worksheet[`S${i}`] && (worksheet[`S${i}`].v.toUpperCase().endsWith('Д') || worksheet[`S${i}`].v.toUpperCase().endsWith('Р'))) {
                 let number = parseInt(worksheet[`S${i}`].v, 10)
-                athlete.isReserve = worksheet[`S${i}`].v.endsWith('Р');
+                athlete.isReserve = worksheet[`S${i}`].v.toUpperCase().endsWith('Р');
                 let currentDuet = tech.mixed.find(duet => duet.number === number)
                 if (!currentDuet) {
                     let duet = new Duet(
@@ -280,9 +280,9 @@ let parseXlApp = function parseXlApp(file) {
                 ))
             }
 
-            if (worksheet[`T${i}`] && (worksheet[`T${i}`].v.endsWith('Г') || worksheet[`T${i}`].v.endsWith('Р'))) {
+            if (worksheet[`T${i}`] && (worksheet[`T${i}`].v.toUpperCase().endsWith('Г') || worksheet[`T${i}`].v.toUpperCase().endsWith('Р'))) {
                 let number = parseInt(worksheet[`T${i}`].v, 10)
-                athlete.isReserve = worksheet[`T${i}`].v.endsWith('Р');
+                athlete.isReserve = worksheet[`T${i}`].v.toUpperCase().endsWith('Р');
                 let currentTeam = tech.team.find(team => team.number === number)
                 if (!currentTeam) {
                     let team = new Team(
@@ -326,15 +326,15 @@ let parseXlApp = function parseXlApp(file) {
                 representative: false,
                 judge: false
             }
-            if (worksheet[`E${i}`] && worksheet[`E${i}`].v === "П") {
+            if (worksheet[`E${i}`] && worksheet[`E${i}`].v.toUpperCase() === "П") {
                 if(isRepresentativeExists) throw new HandledError('В команде должен быть ровно один представитель')
                 isRepresentativeExists = true;
                 staffMember.representative = {role: 'представитель'}
             }
-            if (worksheet[`H${i}`] && worksheet[`H${i}`].v === "Т") {
+            if (worksheet[`H${i}`] && worksheet[`H${i}`].v.toUpperCase() === "Т") {
                 staffMember.coach = {role: 'тренер'}
             }
-            if (worksheet[`J${i}`] && worksheet[`J${i}`].v === "С") {
+            if (worksheet[`J${i}`] && worksheet[`J${i}`].v.toUpperCase() === "С") {
                 staffMember.judge = {
                     role: 'судья',
                     category: worksheet[`L${i}`].v,
