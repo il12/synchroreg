@@ -23,6 +23,7 @@ const login = Router({mergeParams: true})
                             return next(err);
                         } else {
                             res.cookie('userid', user.login, {maxAge: 2592000000});
+                            res.cookie('access', user.access, {maxAge: 2592000000})
                             return res.status(200).json({
                                 'message': 'Success'
                             })

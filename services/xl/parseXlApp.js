@@ -36,16 +36,16 @@ let parseXlApp = function parseXlApp(file) {
     if (!teamName) throw new HandledError('Укажите название команды')
     for (let i = 11; i < 49; i++) {
         if (worksheet[`B${i}`]) {
-            if(!worksheet[`E${i}`]) throw new HandledError(`Укажите дату рождения у спортсмена ${worksheet[`B${i}`].v}`);
-            if(!worksheet[`F${i}`]) throw new HandledError(`Укажите разряд у спортсмена ${worksheet[`B${i}`].v}`)
-            if(!worksheet[`U${i}`]) throw new HandledError(`Укажите общество/школу у спортсмена ${worksheet[`B${i}`].v}`)
-            if(!worksheet[`V${i}`]) throw new HandledError(`Укажите город у спортсмена ${worksheet[`B${i}`].v}`)
-            if(!worksheet[`W${i}`]) throw new HandledError(`Укажите тренера у спортсмена ${worksheet[`B${i}`].v}`)
+            if (!worksheet[`E${i}`]) throw new HandledError(`Укажите дату рождения у спортсмена ${worksheet[`B${i}`].v}`);
+            if (!worksheet[`F${i}`]) throw new HandledError(`Укажите разряд у спортсмена ${worksheet[`B${i}`].v}`)
+            if (!worksheet[`U${i}`]) throw new HandledError(`Укажите общество/школу у спортсмена ${worksheet[`B${i}`].v}`)
+            if (!worksheet[`V${i}`]) throw new HandledError(`Укажите город у спортсмена ${worksheet[`B${i}`].v}`)
+            if (!worksheet[`W${i}`]) throw new HandledError(`Укажите тренера у спортсмена ${worksheet[`B${i}`].v}`)
             let athlete = new Athlete(
                 {
                     family: worksheet[`B${i}`].v,
                     name: worksheet[`C${i}`].v,
-                    surname: worksheet[`D${i}`] ? worksheet[`D${i}`].v : null ,
+                    surname: worksheet[`D${i}`] ? worksheet[`D${i}`].v : null,
                 },
                 worksheet[`E${i}`].v,
                 worksheet[`F${i}`].v,
@@ -312,11 +312,11 @@ let parseXlApp = function parseXlApp(file) {
 
     for (let i = 51; i < 59; i++) {
         if (worksheet[`B${i}`]) {
-            if(!worksheet[`E${i}`] && !worksheet[`H${i}`] && !worksheet[`J${i}`])
+            if (!worksheet[`E${i}`] && !worksheet[`H${i}`] && !worksheet[`J${i}`])
                 throw new HandledError(`Укажите как минимум одну роль у ${worksheet[`B${i}`].v}`)
-            if(worksheet[`J${i}`] && !worksheet[`L${i}`])
+            if (worksheet[`J${i}`] && !worksheet[`L${i}`])
                 throw new HandledError(`Укажите категорию судьи ${worksheet[`B${i}`].v}`);
-            if(worksheet[`J${i}`] && worksheet[`L${i}`].v !== 'б/к' && !worksheet[`P${i}`])
+            if (worksheet[`J${i}`] && worksheet[`L${i}`].v !== 'б/к' && !worksheet[`P${i}`])
                 throw new HandledError(`Укажите сведения о присвоении категории судье ${worksheet[`B${i}`].v}`);
 
             let staffMember = {
@@ -327,7 +327,7 @@ let parseXlApp = function parseXlApp(file) {
                 judge: false
             }
             if (worksheet[`E${i}`] && worksheet[`E${i}`].v.toUpperCase() === "П") {
-                if(isRepresentativeExists) throw new HandledError('В команде должен быть ровно один представитель')
+                if (isRepresentativeExists) throw new HandledError('В команде должен быть ровно один представитель')
                 isRepresentativeExists = true;
                 staffMember.representative = {role: 'представитель'}
             }
@@ -354,7 +354,7 @@ let parseXlApp = function parseXlApp(file) {
         }
     }
 
-    if(!isRepresentativeExists) throw new HandledError('В команде должен быть ровно один представитель')
+    if (!isRepresentativeExists) throw new HandledError('В команде должен быть ровно один представитель')
 
     const application = {
         teamName: teamName,
