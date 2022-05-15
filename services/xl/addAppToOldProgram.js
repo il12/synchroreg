@@ -131,7 +131,6 @@ async function addAppToOldProgram(buffer, app) {
         }
         if (doFreeCombi !== -1) {
             const combi = app.free.combi[doFreeCombi];
-            console.log(`${athlete.family} combi - ${combi.number}`);
             const isReserve = combi.athletes.filter(item => item.id === athlete.id)[0].isReserve;
             const combiCell = worksheet.getCell(`S${athleteLine}`)
             combiCell.value = `${freeCombiCount + combi.number}${isReserve ? 'Р' : 'К'}`
