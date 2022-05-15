@@ -181,55 +181,55 @@ async function addAppToOldProgram(buffer, app) {
 
     worksheet.getCell('AC2').value = {
         formula: worksheet.getCell('AC2').value.formula,
-        result: athleteCount+app.athletes.length,
+        result: Number(athleteCount)+app.athletes.length,
     };
     worksheet.getCell('AD2').value = {
         formula: worksheet.getCell('AD2').value.formula,
-        result: staffCount+app.staff.length,
+        result: Number(staffCount)+app.staff.length,
     };
     worksheet.getCell('Y2').value = {
         formula: worksheet.getCell('Y2').value.formula,
-        result: teamCount+1,
+        result: Number(teamCount)+1,
     };
     worksheet.getCell('N2').value = {
         formula: worksheet.getCell('N2').value.formula,
-        result: freeSoloCount+app.free.solo.length,
+        result: Number(freeSoloCount)+app.free.solo.length,
     };
     worksheet.getCell('O2').value = {
         formula: worksheet.getCell('O2').value.formula,
-        result: freeDuetCount+app.free.duet.length,
+        result: Number(freeDuetCount)+app.free.duet.length,
     };
     worksheet.getCell('P2').value = {
         formula: worksheet.getCell('P2').value.formula,
-        result: freeMixedCount+app.free.mixed.length,
+        result: Number(freeMixedCount)+app.free.mixed.length,
     };
     worksheet.getCell('Q2').value = {
         formula: worksheet.getCell('Q2').value.formula,
-        result: freeTeamCount+app.free.team.length,
+        result: Number(freeTeamCount)+app.free.team.length,
     };
     worksheet.getCell('R2').value = {
         formula: worksheet.getCell('R2').value.formula,
-        result: freeHighlightCount+app.free.highlight.length,
+        result: Number(freeHighlightCount)+app.free.highlight.length,
     };
     worksheet.getCell('S2').value = {
         formula: worksheet.getCell('S2').value.formula,
-        result: freeCombiCount+app.free.combi.length,
+        result: Number(freeCombiCount)+app.free.combi.length,
     };
     worksheet.getCell('T2').value = {
         formula: worksheet.getCell('T2').value.formula,
-        result: techSoloCount+app.tech.solo.length,
+        result: Number(techSoloCount)+app.tech.solo.length,
     };
     worksheet.getCell('U2').value = {
         formula: worksheet.getCell('U2').value.formula,
-        result: techDuetCount+app.tech.duet.length,
+        result: Number(techDuetCount)+app.tech.duet.length,
     };
     worksheet.getCell('V2').value = {
         formula: worksheet.getCell('V2').value.formula,
-        result: techMixedCount+app.tech.mixed.length,
+        result: Number(techMixedCount)+app.tech.mixed.length,
     };
     worksheet.getCell('W2').value = {
         formula: worksheet.getCell('W2').value.formula,
-        result: techTeamCount+app.tech.team.length,
+        result: Number(techTeamCount)+app.tech.team.length,
     };
 
     const newTeam = worksheet.getCell(`Z${newTeamLine}`);
