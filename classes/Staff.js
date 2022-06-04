@@ -3,7 +3,7 @@ import crypto from "crypto";
 export default class Staff{
     constructor(name, team, representative=false, coach=false, judge=false) {
         if(!representative && !coach && !judge){
-            throw new Error('Staff should have at least one role')
+            throw new Error(`Staff ${name} should have at least one role`)
         }
         this.name = name;
         this.team = team;
